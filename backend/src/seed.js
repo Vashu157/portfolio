@@ -14,10 +14,9 @@ const portfolioData = {
     institution: 'National Institute of Technology Delhi',
     year: 'Graduating 2027',
     field: 'Computer Science Engineering',
-    gpa: '7.13 CGPA'
+    gpa: '7.1 CGPA'
   },
   skills: [
-    'C',
     'C++',
     'Python',
     'JavaScript',
@@ -45,10 +44,10 @@ const portfolioData = {
       title: 'Legacy Locker',
       description: 'ML-Powered Password Manager with encryption, automation, and innovative nominee-based credentials transfer after user death. Built with Next.js and Python ML models.',
       links: {
-        github: 'https://github.com/vashu/legacy-locker',
+        github: 'https://github.com/Vashu157/legacy-locker',
         live: 'https://legacy-locker.vercel.app'
       },
-      technologies: ['Next.js', 'Python', 'Machine Learning', 'Encryption'],
+      technologies: ['Next.js', 'Python', 'Machine Learning', 'Encryption','Authorization'],
       featured: true
     },
     {
@@ -65,7 +64,7 @@ const portfolioData = {
       title: 'Blinkit-Style Food Delivery App',
       description: 'Campus-focused food delivery platform with product listings, shopping cart, order management, and PostgreSQL backend. College project inspired by Blinkit.',
       links: {
-        github: 'https://github.com/vashu/campus-delivery'
+        github: 'https://github.com/Vashu157/justoo-backend-refactored'
       },
       technologies: ['Next.js', 'Node.js', 'React Native', 'PostgreSQL'],
       featured: true
@@ -74,7 +73,7 @@ const portfolioData = {
       title: 'Spam SMS Detector',
       description: 'Machine learning model to classify SMS messages as spam or ham using NLP techniques. Built with Streamlit for interactive UI.',
       links: {
-        github: 'https://github.com/vashu/spam-detector',
+        github: 'https://github.com/Vashu157/spam-detector',
         demo: 'https://spam-detector-vashu.streamlit.app'
       },
       technologies: ['Python', 'Streamlit', 'NLTK', 'Machine Learning', 'NLP'],
@@ -84,10 +83,10 @@ const portfolioData = {
       title: 'Tech Club NIT Delhi Website',
       description: 'Official website for Tech Club featuring event updates, interactive features, and responsive design. Built and maintained as Website Developer.',
       links: {
-        github: 'https://github.com/vashu/techclub-website',
-        live: 'https://techclub.nitdelhi.ac.in'
+        github: 'https://github.com/Ankit-Rattan/tfweb',
+        live: 'https://upvisionnitdelhi.netlify.app/'
       },
-      technologies: ['ReactJS', 'HTML', 'CSS', 'JavaScript'],
+      technologies: ['ReactJS', 'HTML', 'CSS', 'JavaScript','Node JS'],
       featured: false
     }
   ],
@@ -106,13 +105,6 @@ const portfolioData = {
       description: 'Active member contributing to placement activities, event management, and sponsorship coordination for college fests.',
       technologies: []
     },
-    {
-      company: 'LeetCode',
-      position: 'Competitive Programmer',
-      duration: '2023 - Present',
-      description: 'Solved 450+ problems in C++, strengthening expertise in data structures and algorithms. Active in competitive programming community.',
-      technologies: ['C++', 'Data Structures', 'Algorithms']
-    }
   ],
   links: {
     github: 'https://github.com/Vashu157/',
@@ -142,10 +134,10 @@ const portfolioData = {
     'CSS': 8,
     'MySQL': 7,
     'Streamlit': 7,
-    'C': 8
   },
   achievements: [
     'Solved 450+ problems on LeetCode using C++',
+    'Solved 50+ problems on codeforces',
     'Deputy General Secretary of Tech Club, NIT Delhi',
     'Sector head of Training & Placement Cell (2024-Present)',
     'Participant in Smart India Hackathon (SIH)',
@@ -163,35 +155,32 @@ const seedDatabase = async () => {
       maxPoolSize: 10,
       serverSelectionTimeoutMS: 5000
     });
-    console.log('✅ Connected to MongoDB');
-    console.log('🗑️  Clearing existing profiles...');
+    console.log(' Connected to MongoDB');
+
     await Profile.deleteMany({});
-    console.log('✅ Existing data cleared');
+    console.log('Existing data cleared');
 
     // Insert new profile
-    console.log('📝 Inserting portfolio data...');
+    console.log(' Inserting portfolio data...');
     const profile = await Profile.create(portfolioData);
-    console.log('✅ Profile created successfully!');
-    console.log('\n📊 Profile Summary:');
-    console.log(`   Name: ${profile.name}`);
-    console.log(`   Email: ${profile.email}`);
-    console.log(`   Skills: ${profile.skills.length}`);
-    console.log(`   Projects: ${profile.projects.length}`);
-    console.log(`   Work Experience: ${profile.work.length}`);
-    console.log(`   ID: ${profile._id}`);
+    // console.log(' Profile created successfully!');
+    // console.log('\n Profile Summary:');
+    // console.log(`   Name: ${profile.name}`);
+    // console.log(`   Email: ${profile.email}`);
+    // console.log(`   Skills: ${profile.skills.length}`);
+    // console.log(`   Projects: ${profile.projects.length}`);
+    // console.log(`   Work Experience: ${profile.work.length}`);
+    // console.log(`   ID: ${profile._id}`);
 
-    console.log('\n✨ Database seeded successfully!');
-    console.log('🚀 You can now start the server with: npm start');
+    console.log('\n Database seeded');
     
   } catch (error) {
-    console.error('❌ Error seeding database:', error.message);
+    console.error(' Error seeding :', error.message);
     console.error(error);
   } finally {
     await mongoose.connection.close();
-    console.log('\n🔌 Database connection closed');
+    console.log('\n DB connection closed');
     process.exit();
   }
 };
-
-// Run the seed function
 seedDatabase();

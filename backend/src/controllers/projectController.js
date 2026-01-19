@@ -1,10 +1,5 @@
 import Profile from '../models/Profile.js';
 
-/**
- * @desc    Get projects, optionally filtered by skill/technology
- * @route   GET /api/projects?skill=python
- * @access  Public
- */
 export const getProjects = async (req, res, next) => {
   try {
     const { skill } = req.query;
@@ -19,12 +14,8 @@ export const getProjects = async (req, res, next) => {
 
     let projects = profile.projects;
 
-    // Filter projects by skill if provided
     if (skill) {
       const skillLower = skill.toLowerCase().trim();
-      
-      // Filter projects that have the skill in their technologies array
-      // OR if the skill is in the profile's skills array and referenced in project
       projects = projects.filter(project => {
         if (project.technologies && Array.isArray(project.technologies)) {
           return project.technologies.some(tech => 
@@ -34,8 +25,6 @@ export const getProjects = async (req, res, next) => {
         return false;
       });
 
-      // Alternative: Also check if skill exists in profile skills
-      // and return projects that match
       if (projects.length === 0) {
         const hasSkill = profile.skills.some(s => 
           s.toLowerCase().includes(skillLower)
@@ -63,11 +52,6 @@ export const getProjects = async (req, res, next) => {
   }
 };
 
-/**
- * @desc    Get a single project by ID
- * @route   GET /api/projects/:id
- * @access  Public
- */
 export const getProjectById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -96,12 +80,6 @@ export const getProjectById = async (req, res, next) => {
     next(error);
   }
 };
-
-/**
- * @desc    Add a new project
- * @route   POST /api/projects
- * @access  Protected (Basic Auth)
- */
 export const addProject = async (req, res, next) => {
   try {
     const profile = await Profile.findOne();
@@ -127,11 +105,6 @@ export const addProject = async (req, res, next) => {
   }
 };
 
-/**
- * @desc    Update a project
- * @route   PATCH /api/projects/:id
- * @access  Protected (Basic Auth)
- */
 export const updateProject = async (req, res, next) => {
   try {
     const { id } = req.params;

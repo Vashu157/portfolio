@@ -1,10 +1,6 @@
 import Profile from '../models/Profile.js';
 
-/**
- * @desc    Get health status
- * @route   GET /api/health
- * @access  Public
- */
+
 export const getHealth = async (req, res, next) => {
   try {
     res.status(200).json({
@@ -18,17 +14,12 @@ export const getHealth = async (req, res, next) => {
   }
 };
 
-/**
- * @desc    Get the single profile
- * @route   GET /api/profile
- * @access  Public
- */
 export const getProfile = async (req, res, next) => {
   try {
     const profile = await Profile.findOne();
     
     if (!profile) {
-      const error = new Error('Profile not found. Please run the seed script.');
+      const error = new Error('Profile not found.run the seed script.');
       error.statusCode = 404;
       return next(error);
     }
@@ -42,11 +33,6 @@ export const getProfile = async (req, res, next) => {
   }
 };
 
-/**
- * @desc    Update profile
- * @route   PATCH /api/profile
- * @access  Protected (Basic Auth)
- */
 export const updateProfile = async (req, res, next) => {
   try {
     const profile = await Profile.findOne();
@@ -73,11 +59,6 @@ export const updateProfile = async (req, res, next) => {
   }
 };
 
-/**
- * @desc    Global search across profile
- * @route   GET /api/search?q=searchTerm
- * @access  Public
- */
 export const searchProfile = async (req, res, next) => {
   try {
     const { q } = req.query;
@@ -89,8 +70,6 @@ export const searchProfile = async (req, res, next) => {
         message: 'Search query parameter "q" is required'
       });
     }
-
-    // Use MongoDB text search
     const profile = await Profile.findOne(
       { $text: { $search: q } },
       { score: { $meta: 'textScore' } }
