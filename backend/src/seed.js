@@ -5,6 +5,7 @@ import Profile from './models/Profile.js';
 dotenv.config();
 
 const portfolioData = {
+  username: 'vashukumar',
   name: 'Vashu Kumar',
   email: 'vashu.kumar@nitdelhi.ac.in',
   title: 'Full Stack Developer & ML Enthusiast',

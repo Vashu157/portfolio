@@ -40,6 +40,16 @@ const workSchema = new mongoose.Schema({
 }, { _id: true });
 
 const profileSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true,
+    trim: true,
+    minlength: 3,
+    maxlength: 30,
+    match: [/^[a-z0-9_-]+$/, 'Username can only contain lowercase letters, numbers, hyphens, and underscores']
+  },
   name: {
     type: String,
     required: true,
@@ -104,9 +114,6 @@ profileSchema.index({
 
 // Index on skills for faster filtering
 profileSchema.index({ skills: 1 });
-
-// Index on email for uniqueness and faster lookups
-profileSchema.index({ email: 1 }, { unique: true });
 
 // Compound index for project queries
 profileSchema.index({ 'projects.technologies': 1 });

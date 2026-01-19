@@ -57,7 +57,37 @@ const api = {
     }
   },
 
-  // Get complete profile
+  // Get all profiles (for directory)
+  getAllProfiles: async () => {
+    try {
+      const response = await apiClient.get('/profiles');
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  // Get profile by username
+  getProfileByUsername: async (username) => {
+    try {
+      const response = await apiClient.get(`/profiles/${username}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  // Create new profile (public)
+  createProfile: async (profileData) => {
+    try {
+      const response = await apiClient.post('/profiles', profileData);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  // Get complete profile (legacy)
   getProfile: async () => {
     try {
       const response = await apiClient.get('/profile');
@@ -68,10 +98,10 @@ const api = {
   },
 
   // Update profile (protected)
-  updateProfile: async (profileData, credentials) => {
+  updateProfile: async (username, profileData, credentials) => {
     try {
       const token = btoa(`${credentials.username}:${credentials.password}`);
-      const response = await apiClient.patch('/profile', profileData, {
+      const response = await apiClient.patch(`/profiles/${username}`, profileData, {
         headers: {
           Authorization: `Basic ${token}`,
         },

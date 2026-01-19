@@ -1,6 +1,9 @@
 import express from 'express';
 import {
   getHealth,
+  getAllProfiles,
+  getProfileByUsername,
+  createProfile,
   getProfile,
   updateProfile,
   searchProfile
@@ -11,10 +14,15 @@ const router = express.Router();
 
 // Public routes
 router.get('/health', getHealth);
-router.get('/profile', getProfile);
+router.get('/profiles', getAllProfiles);
+router.get('/profiles/:username', getProfileByUsername);
+router.post('/profiles', createProfile);
 router.get('/search', searchProfile);
 
+// Legacy route for backward compatibility
+router.get('/profile', getProfile);
+
 // Protected routes
-router.patch('/profile', basicAuth, updateProfile);
+router.patch('/profiles/:username', basicAuth, updateProfile);
 
 export default router;
